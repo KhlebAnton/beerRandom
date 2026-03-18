@@ -1,0 +1,528 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.background {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: background 0.8s ease, background-color 0.8s ease;
+    overflow: hidden;
+}
+
+.background__top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    backdrop-filter: blur(2px);
+    border-bottom: 3px solid rgba(196, 154, 17, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.6s ease;
+}
+
+.background__top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 150px 100px;
+    opacity: 0.9;
+    mix-blend-mode: soft-light;
+    transition: all 0.6s ease;
+}
+
+.background__top::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    transition: all 0.6s ease;
+}
+
+.background::before,
+.background::after {
+    transition: all 0.8s ease;
+}
+
+/* ========== СВЕТЛОЕ ПИВО (LAGER) ========== */
+.drink-lager {
+    background: linear-gradient(145deg, #b88a3b 0%, #d8a943 80%, #927420 100%);
+}
+
+.drink-lager::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 40%, rgba(255, 215, 140, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 70% 60%, rgba(240, 200, 120, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(255, 225, 160, 0.1) 0%, transparent 35%),
+                radial-gradient(circle at 85% 25%, rgba(230, 190, 110, 0.1) 0%, transparent 30%);
+    pointer-events: none;
+}
+
+.drink-lager::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+        radial-gradient(circle at 45% 65%, rgba(255, 255, 240, 0.4) 3px, transparent 3px),
+        radial-gradient(circle at 70% 40%, rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+        radial-gradient(circle at 85% 75%, rgba(255, 255, 245, 0.35) 2px, transparent 2px);
+    background-size: 200px 200px;
+    opacity: 0.6;
+    animation: bubbles 8s linear infinite;
+    pointer-events: none;
+}
+
+.drink-lager .background__top {
+    background: linear-gradient(180deg, 
+        rgba(255, 250, 235, 0.95) 0%,
+        rgba(255, 245, 215, 0.9) 40%,
+        rgba(245, 225, 170, 0.85) 80%,
+        rgba(235, 205, 140, 0.7) 100%
+    );
+}
+
+.drink-lager .background__top::before {
+    background: 
+        radial-gradient(circle at 10% 30%, rgba(255, 255, 255, 0.8) 8px, transparent 8px),
+        radial-gradient(circle at 20% 60%, rgba(255, 255, 255, 0.7) 12px, transparent 12px),
+        radial-gradient(circle at 35% 20%, rgba(255, 255, 255, 0.9) 6px, transparent 6px),
+        radial-gradient(circle at 45% 70%, rgba(255, 255, 255, 0.75) 10px, transparent 10px);
+}
+
+.drink-lager .background__top::after {
+    background: linear-gradient(180deg, 
+        rgba(235, 205, 140, 0.8) 0%,
+        rgba(200, 160, 90, 0.6) 40%,
+        transparent 100%
+    );
+}
+
+/* ========== ТЕМНОЕ ПИВО (STOUT) ========== */
+.drink-stout {
+    background: linear-gradient(145deg, #3a2819 0%, #1e130b 60%, #0a0502 100%);
+}
+
+.drink-stout::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 40%, rgba(140, 70, 20, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(101, 67, 33, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 20% 80%, rgba(120, 60, 20, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 25%, rgba(90, 50, 20, 0.1) 0%, transparent 30%);
+    pointer-events: none;
+}
+
+.drink-stout::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 35%, rgba(255, 220, 180, 0.25) 2px, transparent 2px),
+        radial-gradient(circle at 40% 60%, rgba(230, 190, 140, 0.3) 3px, transparent 3px),
+        radial-gradient(circle at 60% 30%, rgba(245, 205, 155, 0.2) 1px, transparent 1px),
+        radial-gradient(circle at 75% 70%, rgba(255, 215, 170, 0.25) 2px, transparent 2px),
+        radial-gradient(circle at 15% 80%, rgba(240, 200, 150, 0.2) 3px, transparent 3px),
+        radial-gradient(circle at 85% 45%, rgba(255, 225, 180, 0.2) 2px, transparent 2px);
+    background-size: 180px 180px;
+    opacity: 0.4;
+    animation: bubbles 10s linear infinite;
+    pointer-events: none;
+}
+
+.drink-stout .background__top {
+    background: linear-gradient(180deg, 
+        rgba(230, 210, 180, 0.9) 0%,
+        rgba(200, 170, 130, 0.85) 30%,
+        rgba(160, 120, 70, 0.8) 70%,
+        rgba(120, 70, 30, 0.7) 100%
+    );
+}
+
+.drink-stout .background__top::before {
+    background: 
+        radial-gradient(circle at 15% 25%, rgba(255, 240, 210, 0.7) 6px, transparent 6px),
+        radial-gradient(circle at 25% 55%, rgba(245, 225, 190, 0.6) 10px, transparent 10px),
+        radial-gradient(circle at 40% 30%, rgba(255, 235, 200, 0.8) 5px, transparent 5px),
+        radial-gradient(circle at 55% 65%, rgba(250, 230, 195, 0.6) 12px, transparent 12px),
+        radial-gradient(circle at 70% 40%, rgba(255, 245, 215, 0.7) 8px, transparent 8px),
+        radial-gradient(circle at 85% 70%, rgba(240, 220, 185, 0.5) 14px, transparent 14px);
+    opacity: 0.7;
+}
+
+.drink-stout .background__top::after {
+    background: linear-gradient(180deg, 
+        rgba(140, 90, 40, 0.9) 0%,
+        rgba(100, 60, 20, 0.7) 40%,
+        transparent 100%
+    );
+}
+
+/* ========== КОЛА С ВИСКИ ========== */
+.drink-whiskey-cola {
+    background: linear-gradient(145deg, #4a2c0d 0%, #2b1807 70%, #140c03 100%);
+}
+
+.drink-whiskey-cola::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 40% 30%, rgba(180, 100, 30, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 60% 70%, rgba(150, 70, 20, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 25% 60%, rgba(200, 120, 40, 0.1) 0%, transparent 30%);
+    pointer-events: none;
+}
+
+.drink-whiskey-cola::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 30% 40%, rgba(255, 200, 150, 0.4) 2px, transparent 2px),
+        radial-gradient(circle at 50% 55%, rgba(240, 180, 120, 0.35) 3px, transparent 3px),
+        radial-gradient(circle at 70% 30%, rgba(255, 210, 160, 0.3) 1px, transparent 1px),
+        radial-gradient(circle at 20% 70%, rgba(245, 190, 130, 0.4) 2px, transparent 2px),
+        radial-gradient(circle at 80% 60%, rgba(255, 220, 170, 0.3) 3px, transparent 3px),
+        radial-gradient(circle at 45% 20%, rgba(250, 200, 140, 0.35) 2px, transparent 2px),
+        radial-gradient(circle at 65% 80%, rgba(255, 215, 165, 0.3) 2px, transparent 2px);
+    background-size: 150px 150px;
+    opacity: 0.5;
+    animation: bubbles 7s linear infinite;
+    pointer-events: none;
+}
+
+.drink-whiskey-cola .background__top {
+    background: linear-gradient(180deg, 
+        rgba(250, 235, 210, 0.85) 0%,
+        rgba(230, 200, 150, 0.8) 40%,
+        rgba(200, 150, 80, 0.75) 80%,
+        rgba(160, 100, 30, 0.7) 100%
+    );
+    border-bottom-color: rgba(150, 80, 10, 0.5);
+}
+
+.drink-whiskey-cola .background__top::before {
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 245, 220, 0.8) 7px, transparent 7px),
+        radial-gradient(circle at 25% 50%, rgba(250, 235, 200, 0.7) 11px, transparent 11px),
+        radial-gradient(circle at 40% 30%, rgba(255, 250, 230, 0.9) 6px, transparent 6px),
+        radial-gradient(circle at 55% 70%, rgba(245, 225, 190, 0.7) 13px, transparent 13px),
+        radial-gradient(circle at 70% 40%, rgba(255, 240, 210, 0.8) 9px, transparent 9px),
+        radial-gradient(circle at 85% 60%, rgba(240, 215, 175, 0.6) 12px, transparent 12px);
+    opacity: 0.8;
+}
+
+.drink-whiskey-cola .background__top::after {
+    background: linear-gradient(180deg, 
+        rgba(180, 110, 30, 0.9) 0%,
+        rgba(140, 70, 10, 0.7) 40%,
+        transparent 100%
+    );
+}
+
+/* ========== ПУСТОЙ ========== */
+.drink-empty {
+    background: linear-gradient(145deg, #e0e0e0 0%, #b0b0b0 80%, #808080 100%);
+}
+
+.drink-empty::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 40%, rgba(200, 200, 200, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(180, 180, 180, 0.1) 0%, transparent 35%);
+    pointer-events: none;
+}
+
+.drink-empty::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 30% 40%, rgba(220, 220, 220, 0.2) 2px, transparent 2px),
+        radial-gradient(circle at 50% 60%, rgba(200, 200, 200, 0.15) 3px, transparent 3px);
+    background-size: 200px 200px;
+    opacity: 0.3;
+    animation: none;
+    pointer-events: none;
+}
+
+.drink-empty .background__top {
+    background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(240, 240, 240, 0.8) 40%,
+        rgba(220, 220, 220, 0.7) 80%,
+        rgba(200, 200, 200, 0.6) 100%
+    );
+    border-bottom-color: rgba(100, 100, 100, 0.3);
+}
+
+.drink-empty .background__top::before {
+    background: 
+        radial-gradient(circle at 15% 30%, rgba(230, 230, 230, 0.5) 6px, transparent 6px),
+        radial-gradient(circle at 35% 60%, rgba(210, 210, 210, 0.4) 10px, transparent 10px);
+    opacity: 0.4;
+}
+
+.drink-empty .background__top::after {
+    background: linear-gradient(180deg, 
+        rgba(180, 180, 180, 0.5) 0%,
+        rgba(150, 150, 150, 0.3) 40%,
+        transparent 100%
+    );
+}
+
+/* Анимация пузырьков */
+@keyframes bubbles {
+    0% {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+    100% {
+        background-position: 20px -200px, -30px -180px, 40px -220px, -20px -190px, 10px -210px, -40px -170px;
+    }
+}
+
+/* Стили для интерфейса */
+.main {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 140px 16px 20px;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 45px;
+    color: #4a2c1a;
+    text-shadow: 
+        2px 2px 0 #dba959,
+        4px 4px 0 rgba(255, 215, 0, 0.3),
+        0 8px 15px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
+    line-height: 100%;
+    margin-bottom: 30px;
+}
+.beer_random_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+.timer {
+    opacity: .4;
+    display: none;
+}
+.timer.is-open {
+    display: block;
+}
+.timer_count {
+    font-weight: 600;
+}
+.random_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:  2px 2px 0 #dba959,
+        0px 2px 0 rgba(255, 215, 0, 0.3),
+        0 8px 15px rgba(0, 0, 0, 0.2);
+    background-color: #4a2c1a;
+    height: 40px;
+    padding: 15px 20px;
+    border-radius: 40px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #dba959;
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.random_btn span {
+    transition: transform .3s ease;
+}
+.random_btn:hover {
+    transform: scale(1.1);
+     box-shadow:  0px 0px 0 #dba959,
+        0px 0px 0 rgba(255, 215, 0, 0.3),
+        0 8px 15px rgba(0, 0, 0, 0.2);
+}
+.random_btn:active {
+     transform: scale(0.9);
+}
+.random_btn.is-active {
+     transform: scale(1.1);
+     box-shadow:  0px 0px 0 #dba959,
+        0px 0px 0 rgba(255, 215, 0, 0.3),
+        0 8px 15px rgba(0, 0, 0, 0.2);
+        pointer-events: none;
+}
+
+.random_btn_anim {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(250%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+    transition: transform .3s ease;
+    
+}
+.random_btn_anim_load {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #f1a83b;
+    animation: load 1s ease-in-out infinite alternate-reverse;
+}
+.random_btn_anim_load:nth-child(2) {
+    animation: load 1s .5s ease-in-out infinite alternate-reverse;
+}
+.random_btn_anim_load:nth-child(3) {
+    animation: load 1s 1s ease-in-out infinite alternate-reverse;
+}
+@keyframes load {
+    from {
+         transform: translateY(3px) scale(0.9);
+    }
+    to {
+        transform: translateY(-3px) scale(1.2);
+    }
+}
+.random_btn.think span {
+    transform: translateY(-40px);   
+}
+.random_btn.think .random_btn_anim {
+    transform: translateX(-50%) translateY(-50%);
+}
+.random_think {
+    padding: 0;
+    border-radius: 12px;
+    background-color: #4a2c1a;
+    width: 100%;
+    max-width: 250px;
+    max-height: 0;
+    overflow: hidden;
+    font-size: 18px;
+    color: #d8a943;
+    transition: all .3s ease;
+}
+.random_think.is-open {
+     max-height: 150px;
+    padding: 12px ;
+
+}
+.random_think_text {
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+.random_think_text.is-open {
+    opacity: 1;
+}
+.random_result {
+    padding: 0;
+    border-radius: 12px;
+    background-color: #4a2c1a;
+    color: #d8a943;
+    width: 100%;
+    
+    max-width: 360px;
+overflow: hidden;
+max-height: 0;
+transition: all .6s ease;
+}
+.random_result__text {
+    opacity: 0; 
+    transition: .8s .3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.random_result.is-open {
+    padding: 16px;
+max-height: 250px;
+
+}
+.random_result.is-open .random_result__text  {
+    opacity: 1;
+}
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 34px;
+    }
+    
+    .background__top {
+        height: 100px;
+    }
+    
+    .main {
+        padding-top: 120px;
+    }
+    
+    .drink-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        min-width: 120px;
+    }
+}

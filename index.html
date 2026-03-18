@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beer randomaiser</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="background drink-lager">
+        <div class="background__top"></div>
+    </div>
+
+    <div class="main">
+        <h1>Beer <br> randomaiser</h1>
+        <div class="beer_random_container">
+            <div class="random_btn">
+                <span>Выпить ли мне?</span>
+                <div class="random_btn_anim">
+                    <div class="random_btn_anim_load"></div>
+                    <div class="random_btn_anim_load"></div>
+                    <div class="random_btn_anim_load"></div>
+                </div>
+            </div>
+            <div class="timer">
+                <span>Ответ через <span class="timer_count">11</span> сек.</span>
+            </div>
+            <div class="random_think">
+                <p class="random_think_text">
+                    Если есть жена или муж, лучше, думаю, у них спросить...
+                </p>
+            </div>
+            <div class="random_result">
+                <div class="random_result__text">
+                    <h2 class="name_title">
+                        Такой
+                    </h2>
+                    <p>
+                        такой ток ткус
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const randomBtn = document.querySelector('.random_btn');
+const randomThink = document.querySelector('.random_think');
+const randomThinkText = document.querySelector('.random_think_text');
+const timerElement = document.querySelector('.timer');
+const timerCount = document.querySelector('.timer_count');
+const resultEl = document.querySelector('.random_result');
+const resultName = document.querySelector('.name_title');
+const resultText = document.querySelector('.random_result__text p');
+const background = document.querySelector('.background');
+
+let isThinkActive = false;
+let thinkInterval = null;
+let timerInterval = null;
+let currentTimerValue = 11;
+let selectedDrink = null;
+let mainTimeout = null; // Добавляем для главного таймера
+
+const thinkTextArr = [
+    'Сегодня выходной?',
+    'Ты закончил работу на сегодня?',
+    'Если есть жена или муж, лучше, думаю, у них спросить...',
+    'Ты сегодня уже заработал на пиво?',
+    'Завтра на работу?',
+    'Рабочий день закончен или только начался?',
+    'Собака выгуляна? Кошка накормлена?',
+    'Ты же не за рулём?',
+    'Калории не считаются после 18:00',
+    'Витамины в пиве есть',
+    'Четное число? Нечетное? Какая разница!',
+    'А сам гуглил?',
+];
+
+const thinkBeer = {
+    'drink-lager': {
+        name: 'Светлое пиво',
+        text: 'Легкое, освежающее. Идеально на сегодня! Беги в КБ, чемпион!'
+    },
+    'drink-stout': {
+        name: 'Тёмное пиво',
+        text: 'Насыщенный вкус, бархатистое, как сам вечер. Вот и знак тебе.'
+    },
+    'drink-whiskey-cola': {
+        name: 'Виски-кола!',
+        text: 'Какое пиво?? Кто Королева танцпола?'
+    },
+    'drink-empty': {
+        name: 'Пропустить',
+        text: 'Сегодня день без алкоголя. Иди спать или работать!'
+    }
+};
+
+function updateTimer(value) {
+    timerCount.textContent = value;
+}
+
+function startTimer(seconds) {
+    currentTimerValue = seconds;
+    updateTimer(currentTimerValue);
+    timerElement.classList.add('is-open');
+
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+
+    timerInterval = setInterval(() => {
+        currentTimerValue--;
+        updateTimer(currentTimerValue);
+
+        if (currentTimerValue <= 0) {
+            stopTimer();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    timerElement.classList.remove('is-open');
+}
+
+function getRandomThinkText() {
+    return thinkTextArr[Math.floor(Math.random() * thinkTextArr.length)];
+}
+
+function getRandomDrink() {
+    const drinks = Object.keys(thinkBeer);
+    return drinks[Math.floor(Math.random() * drinks.length)];
+}
+
+function updateBackgroundAndResult(drinkKey) {
+    // Удаляем все классы напитков
+    background.classList.remove(
+        'drink-lager',
+        'drink-stout',
+        'drink-whiskey-cola',
+        'drink-empty'
+    );
+
+    // Добавляем новый класс
+    background.classList.add(drinkKey);
+
+    // Обновляем текст результата
+    const drinkData = thinkBeer[drinkKey];
+    resultName.textContent = drinkData.name;
+    resultText.textContent = drinkData.text;
+}
+
+function showThinkMessage() {
+    randomThink.style.display = '';
+    randomThinkText.innerHTML = getRandomThinkText();
+    randomThink.classList.add('is-open');
+
+    setTimeout(() => {
+        randomThinkText.classList.add('is-open');
+    }, 300);
+
+    setTimeout(() => {
+        randomThinkText.classList.remove('is-open');
+        setTimeout(() => {
+            randomThink.classList.remove('is-open');
+        }, 300);
+    }, 3000);
+}
+
+function startThinkLoop() {
+    // Очищаем предыдущий таймаут если был
+    if (mainTimeout) {
+        clearTimeout(mainTimeout);
+        mainTimeout = null;
+    }
+
+    startTimer(11);
+    resultEl.classList.remove('is-open');
+    randomThink.style.display = ''; // Показываем блок с подсказками
+    
+    if (thinkInterval) {
+        clearInterval(thinkInterval);
+        thinkInterval = null;
+    }
+
+    isThinkActive = true;
+    randomBtn.classList.add('is-active', 'think');
+    randomBtn.querySelector('span').textContent = 'Думаю...';
+
+    // Показываем первую подсказку сразу
+    showThinkMessage();
+
+    // Запускаем интервал для подсказок
+    thinkInterval = setInterval(() => {
+        if (isThinkActive) {
+            showThinkMessage();
+        }
+    }, 4000);
+
+    // Устанавливаем таймаут на окончание цикла (11 секунд)
+    mainTimeout = setTimeout(() => {
+        if (isThinkActive) {
+            stopThinkLoop();
+        }
+    }, 11000);
+}
+
+function stopThinkLoop() {
+    stopTimer();
+    isThinkActive = false;
+    randomBtn.classList.remove('is-active', 'think');
+    randomBtn.querySelector('span').textContent = 'Нее..еще давай';
+    randomThink.style.display = 'none';
+
+    // Очищаем интервал подсказок
+    if (thinkInterval) {
+        clearInterval(thinkInterval);
+        thinkInterval = null;
+    }
+
+    // Очищаем главный таймаут
+    if (mainTimeout) {
+        clearTimeout(mainTimeout);
+        mainTimeout = null;
+    }
+
+    // Выбираем случайный напиток
+    selectedDrink = getRandomDrink();
+    updateBackgroundAndResult(selectedDrink);
+
+    resultEl.classList.add('is-open');
+
+    randomThinkText.classList.remove('is-open');
+    setTimeout(() => {
+        randomThink.classList.remove('is-open');
+    }, 300);
+}
+
+function toggleThinkLoop() {
+    if (isThinkActive) {
+        stopThinkLoop();
+    } else {
+        startThinkLoop();
+    }
+}
+
+randomBtn.addEventListener('click', toggleThinkLoop);
+    </script>
+</body>
+
+</html>
