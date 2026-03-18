@@ -176,6 +176,7 @@ function showThinkMessage() {
 
 function startThinkLoop() {
     // Очищаем предыдущий таймаут если был
+    background.classList.add('hidden')
     if (mainTimeout) {
         clearTimeout(mainTimeout);
         mainTimeout = null;
@@ -214,6 +215,8 @@ function startThinkLoop() {
 
 function stopThinkLoop() {
     stopTimer();
+    background.classList.remove('hidden')
+
     isThinkActive = false;
     randomBtn.classList.remove('is-active', 'think');
     randomBtn.querySelector('span').textContent = 'Нее..еще давай';
